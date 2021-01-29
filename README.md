@@ -1,20 +1,18 @@
 # SVC 2 InfluxDB v2.x
-A simple storage metrics collector (written in Python) from IBM SVC equipments whose inject them into a InfluxDB database.
+A simple storage metrics collector (written in Python) from IBM SVC equipments whose inject them into a InfluxDB v2.x database.
 Works with all IBM kind of hardware running SVC (FlashSystem V9000, V840, ...)
 
 *This is a fork of the project "[svc2influxdb](https://github.com/jbrt/svc2influxdb)" from @jbrt, but it is for InfluxDB v2.x. @jbrt, thanks for your work!*
 
 ## Requirements
-This script use python 3 and modules like 'paramiko', 'requests' and 'influxdb'. You can install them by using this command line:
+This script use python 3 and modules like 'paramiko', 'requests' and '[influxdb-client](https://github.com/influxdata/influxdb-client-python)'. You can install them by using this command line:
 `$ pip install -r requirements.txt`
 
 ## Usage
-`$ svc2influxdb.py your_config.file [--fixed]`
+`$ svc2influxdb2.py your_config.file [--fixed]`
 
 The only required argument is the configuration file.
-
 The --fixed option can be used to force the script to use the same timestamp for the metrics collect from your equipments. It can be helpful to "synchronize" all the metrics collected during a same batch to facilitate the visualization (with Grafana for example).
-
 The capacity values shown in the __measurements are in bytes__ (think to adjust your data type in Grafana if you use it).
 
 
@@ -30,9 +28,7 @@ The configuration file use a .ini syntax.
     database = svc2influxdb
 ```
 
-The INFLUXDB section let you describe the location of your database. The address field is required (can be a name or an IP address).
-The fields username and password can be let blank if your database accept anonymous connections.
-The database field can be blank. In this case the default database name svc2influxdb will be used. In all cases, the database will be created if it doesn't exists.
+The INFLUXDB section let you describe the location of your database. The address field is required (can be a name or an IP address and the port).
 
 
 #### Add IBM SVC informations
@@ -49,7 +45,8 @@ The database field can be blank. In this case the default database name svc2infl
 You can add any SVC sections you need. The script will be collect the metrics in a sequential mode.
 A SVC section use the name of your SVC equipment (a short name or a nickname why not).
 The fields address, username and password are required. It's the same informations you use for a SSH connection.
-You can also add __tags__ if you need it. These tags are used to described some informations to enrich your time series. For example you can specify if this SVC is used in a production environment or it's location. Example:
+You can also add __tags__ if you need it. These tags are used to described some informations to enrich your time series. For example you can specify if this SVC is used in a production environment or it's location. 
+Example:
 ```ini
     datacenter = Paris
     room = AB3
