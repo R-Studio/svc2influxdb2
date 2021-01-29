@@ -65,8 +65,7 @@ List of the measurements:
 
 ## TODO
 Pull requests are welcome ! :smiley:
-1. Change the sequential mode to asynchronous mode with the asyncio module
-2. Collect not only the storage metrics but also performance metrics
+1. Collect not only the storage metrics but also performance metrics
 
 ## Miscellaneous
 The only commands send to your IBM SVC by this software are :
