@@ -2,7 +2,7 @@
 A simple storage metrics collector (written in Python) from IBM SVC equipments whose inject them into a InfluxDB database.
 Works with all IBM kind of hardware running SVC (FlashSystem V9000, V840, ...)
 
-*This is a fork of the project "[svc2influxdb](https://github.com/jbrt/svc2influxdb)" from @jbrt, but it is for InfluxDB v2.x*
+*This is a fork of the project "[svc2influxdb](https://github.com/jbrt/svc2influxdb)" from @jbrt, but it is for InfluxDB v2.x. @jbrt, thanks for your work!*
 
 ## Requirements
 This script use python 3 and modules like 'paramiko', 'requests' and 'influxdb'. You can install them by using this command line:
