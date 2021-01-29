@@ -58,6 +58,7 @@ The informations can be used __in your InfluxQL requests__.
 ## InfluxDB results
 The names of the measurements are the same labels shown while you using CLI commands like 'lsvdisk' or 'lsmdiskgrp' (prefixed by 'pool_' or 'volume_' ). Please refer to the IBM online help to get the exact signification of all of them.
 List of the measurements:
+
 ![List of measurements](images/measurements.png)
 
 ## Example of data visualization with Grafana
