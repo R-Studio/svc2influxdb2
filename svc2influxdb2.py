@@ -120,7 +120,9 @@ class PoolSeriesBuilder(SeriesBuilder):
                               'compression_virtual_capacity',
                               'free_capacity',
                               'real_capacity',
-                              'used_capacity']
+                              'used_capacity', 
+                              'physical_capacity', 
+                              'physical_free_capacity']
 
         self._tags = ['name', 'id']
 
@@ -181,10 +183,20 @@ class PoolSSHCollector(SSHCollector):
     def __init__(self, **kwargs):
         super(PoolSSHCollector, self).__init__(**kwargs)
 
+    def _get_pool_details(self, identifier: str): 
+        stdout = self._send_command('lsmdiskgrp -bytes -delim , %s' % identifier) 
+        reader = csv.reader(stdout) 
+        return {line[0]: line[1] for line in reader if line} 
+
     def collect(self):
         stdout = self._send_command('lsmdiskgrp -bytes -delim ,')
         reader = csv.DictReader(stdout)
-        return [self._builder.parse(line, 'pool') for line in reader]
+
+        pool_details = [] 
+        for line in reader: 
+            pool_details.append(self._get_pool_details(line['id'])) 
+
+        return [self._builder.parse(line, 'pool') for line in pool_details]
 
 
 class VolumeSSHCollector(SSHCollector):
@@ -247,4 +259,5 @@ if __name__ == '__main__':
     # All the series are inserted into the database at the end of the batch to be sure we have a consistent batch
     # with all the measurements en equipments.
     for serie in series:
+        #print(serie)
         write_api.write(bucket=bucket, record=serie)
