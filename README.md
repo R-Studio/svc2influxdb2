@@ -71,8 +71,9 @@ Pull requests are welcome ! :smiley:
 ## Miscellaneous
 The only commands send to your IBM SVC by this software are :
 * lsmdiskgrp
+* lsmdiskgrp <MDISK_ID>
 * lsvdisk
-* lsvdisk VDISK_ID
+* lsvdisk <VDISK_ID>
 
 ## License
 This source code is under GNU GPL3 license.
